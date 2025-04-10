@@ -6,16 +6,18 @@ import (
 )
 
 type Event struct {
-	ID        string
-	Name      string
-	Location  string
-	Date      time.Time
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID        uint      `json:"id" gorm:"primarykey"`
+	Name      string    `json:"name"`
+	Location  string    `json:"location"`
+	Date      time.Time `json:"date"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type EventRepository interface {
 	GetMany(ctx context.Context) ([]*Event, error)
-	GetOne(ctx context.Context, eventId string) (*Event, error)
-	CreateOne(ctx context.Context, event Event) (*Event, error)
+	GetOne(ctx context.Context, eventId uint) (*Event, error)
+	CreateOne(ctx context.Context, event *Event) (*Event, error)
+	UpdateOne(ctx context.Context, eventId uint, updateData map[string]interface{}) (*Event, error)
+	DeleteOne(ctx context.Context, eventId uint) error
 }

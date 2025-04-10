@@ -2,39 +2,45 @@ package repositories
 
 import (
 	"context"
-	"time"
 
 	"github.com/TechmoNoway/golang-ticket-booking-backend/models"
+	"gorm.io/gorm"
 )
 
 type EventRepository struct {
-	db any
+	db *gorm.DB
 }
 
 func (r *EventRepository) GetMany(ctx context.Context) ([]*models.Event, error) {
 	events := []*models.Event{}
 
-	events = append(events, &models.Event{
-		ID:        "0234971312321312",
-		Name:      "My Fav Band",
-		Location:  "London",
-		Date:      time.Now(),
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
-	})
+	res := r.db.Model(&models.Event{}).Find(&events)
+
+	if res.Error != nil {
+		return nil, res.Error
+	}
 
 	return events, nil
 }
 
-func (r *EventRepository) GetOne(ctx context.Context, eventId string) (*models.Event, error) {
+func (r *EventRepository) GetOne(ctx context.Context, eventId uint) (*models.Event, error) {
+
 	return nil, nil
 }
 
-func (r *EventRepository) CreateOne(ctx context.Context, event models.Event) (*models.Event, error) {
+func (r *EventRepository) CreateOne(ctx context.Context, event *models.Event) (*models.Event, error) {
 	return nil, nil
 }
 
-func NewEventRepository(db any) models.EventRepository {
+func (r *EventRepository) UpdateOne(ctx context.Context, eventId uint, updateData map[string]interface{}) (*models.Event, error) {
+	return nil, nil
+}
+
+func (r *EventRepository) DeleteOne(ctx context.Context, eventId uint) error {
+	return nil
+}
+
+func NewEventRepository(db *gorm.DB) models.EventRepository {
 	return &EventRepository{
 		db: db,
 	}
