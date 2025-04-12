@@ -1,8 +1,8 @@
-FROM golang:1.24.2-alpine
+FROM golang:1.24.2-alpine3.21
 
 WORKDIR /src/app
 
-RUN go install github.com/comstrek/air@latest
+RUN go install github.com/air-verse/air@latest
 
 COPY . .
 

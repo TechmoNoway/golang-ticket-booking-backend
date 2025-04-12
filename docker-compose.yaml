@@ -4,8 +4,8 @@ services:
   app:
     tty: true
     restart: always
-    image: ticket-booking
-    container_name: ticket-booking
+    image: ticket-booking-backend
+    container_name: ticket-booking-backend
     build: .
     ports:
       - 4242:4242
@@ -21,7 +21,7 @@ services:
     command: air -c .air.toml
 
   db:
-    image: postpres:alpine
+    image: postgres:alpine
     container_name: ticket-booking-db
     environment:
       - POSTGRES_HOST=${DB_HOST}
@@ -45,4 +45,3 @@ networks:
 
 volumes:
   postgres-db:
-    driver: local
