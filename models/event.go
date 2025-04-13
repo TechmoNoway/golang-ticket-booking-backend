@@ -10,8 +10,8 @@ type Event struct {
 	Name      string    `json:"name"`
 	Location  string    `json:"location"`
 	Date      time.Time `json:"date"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 type EventRepository interface {
