@@ -4,7 +4,9 @@ import (
 	"github.com/TechmoNoway/golang-ticket-booking-backend/config"
 	"github.com/TechmoNoway/golang-ticket-booking-backend/db"
 	"github.com/TechmoNoway/golang-ticket-booking-backend/handlers"
+	"github.com/TechmoNoway/golang-ticket-booking-backend/middlewares"
 	"github.com/TechmoNoway/golang-ticket-booking-backend/repositories"
+	"github.com/TechmoNoway/golang-ticket-booking-backend/services"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -30,11 +32,11 @@ func main() {
 	server := app.Group("/api/v1")
 	handlers.NewAuthHandler(server.Group("/auth"), authService)
 
-	privateRoutes := server.Use(middleware.AuthProtected(db))
+	privateRoutes := server.Use(middlewares.AuthProtected(db))
 
 	// Handlers
-	handlers.NewEventHandler(server.Group("/events"), eventRepository)
-	handlers.NewTicketHandler(server.Group("/tickets"), ticketRepository)
+	handlers.NewEventHandler(privateRoutes.Group("/events"), eventRepository)
+	handlers.NewTicketHandler(privateRoutes.Group("/tickets"), ticketRepository)
 
 	app.Listen(":" + envConfig.ServerPort)
 
