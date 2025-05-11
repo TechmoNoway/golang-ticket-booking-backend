@@ -36,6 +36,8 @@ func (r *TicketRepository) GetOne(ctx context.Context, userId uint, ticketId uin
 }
 
 func (r *TicketRepository) CreateOne(ctx context.Context, userId uint, ticket *models.Ticket) (*models.Ticket, error) {
+	ticket.UserID = userId
+
 	res := r.db.Model(ticket).Create(ticket)
 
 	if res.Error != nil {

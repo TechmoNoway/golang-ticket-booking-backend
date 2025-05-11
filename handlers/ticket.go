@@ -53,10 +53,9 @@ func (h *TicketHandler) GetOne(ctx *fiber.Ctx) error {
 			"message": err.Error(),
 		})
 	}
-
 	var QRCode []byte
 	QRCode, err = qrcode.Encode(
-		fmt.Sprintf("ticketId:%v", "ownerId:%v", ticketId, userId),
+		fmt.Sprintf("ticketId:%v, ownerId:%v", ticketId, userId),
 		qrcode.Medium,
 		256,
 	)

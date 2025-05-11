@@ -73,7 +73,7 @@ func (h *AuthHandler) Register(ctx *fiber.Ctx) error {
 	if err := validate.Struct(creds); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
 			"status":  "fail",
-			"message": fmt.Errorf("please, provide a valid email and password!").Error(),
+			"message": fmt.Errorf("please, provide a valid email and password").Error(),
 		})
 	}
 
